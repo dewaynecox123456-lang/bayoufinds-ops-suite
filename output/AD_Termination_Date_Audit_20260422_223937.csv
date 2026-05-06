@@ -1,0 +1,3 @@
+"DisplayName","SamAccountName","UserPrincipalName","Enabled","Department","Title","Mail","LastLogonDate","TerminationValue"
+"Alice Johnson","ajohnson","ajohnson@example.local","False","Finance","Analyst","ajohnson@example.local","3/23/2026 10:39:37 PM","2026-04-22"
+"Bob Smith","bsmith","bsmith@example.local","True","IT","Engineer","bsmith@example.local","4/20/2026 10:39:37 PM","2026-04-22"

@@ -1,0 +1,33 @@
+BayouFinds AD Audit & Operations Toolkit
+=======================================
+
+Overview
+--------
+This toolkit provides structured audit and operational scripts for Active Directory environments.
+
+Core Features
+-------------
+- User Audit Reporting
+- Privileged Group Analysis
+- Password Policy Review
+- Termination Tracking
+- Inactive Account Detection
+- (Planned) Local Admin Audit
+
+Key Concepts
+------------
+1. Ticket Enforcement
+   - Primary Ticket = Authorization
+   - Work Ticket = Execution
+   - Stored in AD Description field
+
+2. MockMode
+   - Allows testing without AD
+   - Generates sample data
+   - Used for development and demos
+
+3. Output
+   - All reports export to /output
+   - Timestamped CSV format
+   - Console summary included
+

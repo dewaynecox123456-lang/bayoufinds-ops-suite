@@ -1,0 +1,33 @@
+══════════════════════════════════════
+FAILED LOGIN / BRUTE FORCE AUDIT
+══════════════════════════════════════
+
+Generated: 2026-05-05 14:25:41 -05:00
+Operator: \
+Computer: 
+Domain: 
+Script Version: v1.0
+Window: Last 24 hour(s)
+
+SUMMARY
+-------
+Failed Logons Found: 0
+
+TOP TARGET USERS
+----------------
+- None detected
+
+TOP SOURCE ADDRESSES
+--------------------
+- None detected
+
+INSIGHT
+-------
+- No failed logons detected in selected window.
+
+RECENT EVENTS
+-------------
+
+──────────────────────────────────────
+© BayouFinds.com - All rights reserved.
+support@bayoufinds.com | https://bayoufinds.com

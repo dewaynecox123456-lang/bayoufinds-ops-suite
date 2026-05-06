@@ -1,0 +1,67 @@
+🚨 SYSTEM HEALTH REPORT
+-----------------------
+
+AUDIT METADATA:
+- Generated: 2026-04-22 00:52:46 CDT
+- Hostname: dcox.spectrum.com
+- User: dewaynecox
+- Domain/Realm: spectrum.com
+- Platform: Fedora Silverblue / OSTree
+- Check Path: /var/home
+- Script Version: v1.9
+
+INFO:
+- Disk usage normal on /var/home (59%)
+
+INFO:
+- Uptime: up 2 days, 3 hours, 13 minutes
+
+🔥 DISK USAGE BREAKDOWN
+-----------------------
+50G	/var
+39G	/var/lib
+2.6G	/var/log
+273M	/var/cache
+30M	/var/usrlocal
+8.0K	/var/opt
+
+🔎 /var/lib BREAKDOWN
+--------------------
+39G	/var/lib/flatpak
+39G	/var/lib
+68M	/var/lib/plocate
+17M	/var/lib/rpm-ostree
+12M	/var/lib/systemd
+1.9M	/var/lib/fwupd
+1.8M	/var/lib/passim
+428K	/var/lib/AccountsService
+
+📦 LARGEST FILES UNDER /var/lib
+------------------------------
+259.3M	/var/lib/flatpak/app/com.google.Chrome/x86_64/stable/0b0c9c8caa9a8e5bf4488a5340d63cf8cfbca4a3e12a5203552daa0f4df60ea5/files/extra/chrome
+257.3M	/var/lib/flatpak/repo/objects/26/969c2e75bceb3c1cac70738fc2f69c82322f9c160d69f7d66035643bcdb3f3.file
+257.3M	/var/lib/flatpak/app/org.chromium.Chromium/x86_64/stable/1bb3a14d05a17bca11f0f5db2e5f950c23b446befefde93e64181b21b83de991/files/chromium/chrome
+232.6M	/var/lib/flatpak/app/com.spotify.Client/x86_64/stable/b69b319989fd80dfd81d6dc97efa585d4e11102fb7068f6c2a86b98ef91b536c/files/extra/share/spotify/libcef.so
+201.6M	/var/lib/flatpak/runtime/org.fedoraproject.KDE6Platform/x86_64/f44/ed82efae6563c0b92da5c15e74ebbf320590cd17284580de190a8bbf8075d5be/files/lib64/libQt6WebEngineCore.so.6.10.2
+
+🚨 TOP SPACE CONSUMER:
+/var → 50G
+
+🚨 TOP /var/lib CONSUMER:
+/var/lib/flatpak → 39G
+
+⚠️ POTENTIAL CLEANUP TARGETS:
+- /tmp → 2.9M
+- /var/log → 2.6G
+- journald → 2.5G
+
+💡 CLEANUP INSIGHT:
+Flatpak storage appears large. Review unused runtimes and applications.
+
+TOP ISSUE:
+Largest storage concentration identified under /var/lib
+
+RECOMMENDATION:
+Investigate /var/lib/flatpak and the largest files listed above before performing cleanup.
+
+Health check complete: ./output/linux_health_20260422_005246.txt

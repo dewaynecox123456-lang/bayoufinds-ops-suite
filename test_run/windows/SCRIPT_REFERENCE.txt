@@ -1,0 +1,33 @@
+SCRIPT REFERENCE — BayouFinds Ops Suite v1.0
+==========================================
+
+SOX / Combined:
+- SOX_Audit_Runner.ps1
+
+Identity & Access:
+- AD_User_Audit_Report.ps1
+- AD_Role_Audit_Report.ps1
+- AD_Privileged_Group_Audit.ps1
+- AD_Access_Snapshot_Export.ps1
+- AD_Access_Snapshot_Restore.ps1
+- Inactive_Users_Audit.ps1
+- Local_Admin_Audit.ps1
+
+Authentication:
+- Failed_Login_Audit.ps1
+- Logon_Success_Audit.ps1
+- Lockout_Hunter_4740.ps1
+- AD_Group_Change_Audit.ps1
+- Password_Reset_Audit.ps1
+
+System / Operations:
+- Windows_Health_Check.ps1
+- Patch_Dump.ps1
+- Mapped_Drives_Report.ps1
+- Scheduled_Tasks_Audit.ps1
+- Startup_Programs_Audit.ps1
+- Time_Sync_Audit.ps1
+
+Coverage / Data:
+- SolarWinds_Agent_Audit.ps1
+- Dynamics_GP_Database_Inventory.ps1

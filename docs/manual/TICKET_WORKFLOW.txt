@@ -1,0 +1,23 @@
+Ticket Workflow
+===============
+
+All operational actions should be tied to a ServiceNow ticket.
+
+Types:
+- Primary Ticket (Required)
+  Represents authorization (e.g., HR termination)
+
+- Work Ticket (Optional)
+  Represents execution work
+
+Storage Format:
+SNOW_PRIMARY:<ticket> | SNOW_WORK:<ticket> | NOTE:<text>
+
+Example:
+SNOW_PRIMARY:TERM001245 | SNOW_WORK:INC003889 | NOTE:Mailbox Forward
+
+Rules:
+- Never overwrite existing ticket history
+- Always append new entries
+- Maintain traceability to original request
+

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>BayouFinds Ops Suite Help</title>
+<style>
+body { font-family: Arial, sans-serif; background:#0f172a; color:#e5e7eb; padding:24px; line-height:1.5; }
+h1, h2 { color:#38bdf8; }
+code { background:#111827; padding:2px 6px; border-radius:4px; color:#facc15; }
+.section { margin-bottom:28px; }
+.footer { margin-top:40px; color:#94a3b8; border-top:1px solid #334155; padding-top:16px; }
+</style>
+</head>
+<body>
+
+<h1>BayouFinds Ops Suite — Help</h1>
+
+<div class="section">
+<h2>Getting Started</h2>
+<p>Run <code>run-windows.ps1</code> or double-click <code>RUN_ME.cmd</code>.</p>
+<p>For best results, run PowerShell as Administrator.</p>
+</div>
+
+<div class="section">
+<h2>SOX Audit Runner</h2>
+<p>Creates a full audit evidence pack including patch validation, password policy, local admin audit, inactive users, privileged groups, and mapped drives.</p>
+</div>
+
+<div class="section">
+<h2>Access Snapshot & Restore</h2>
+<p>Captures and restores Active Directory user group membership for termination hold, contractor conversion, rehire, rollback, and audit evidence workflows.</p>
+</div>
+
+<div class="section">
+<h2>Common Issues</h2>
+<ul>
+<li><b>Execution policy blocked:</b> run <code>powershell -ExecutionPolicy Bypass -File run-windows.ps1</code></li>
+<li><b>Missing AD module:</b> install RSAT or run from a domain admin workstation.</li>
+<li><b>No domain access:</b> AD scripts require domain connectivity.</li>
+<li><b>Insufficient permissions:</b> run as Administrator or with delegated AD rights.</li>
+<li><b>InfoSec restrictions:</b> endpoint tools may block script execution or module access.</li>
+<li><b>Missing prerequisites:</b> verify PowerShell, RSAT, network access, and permissions.</li>
+</ul>
+</div>
+
+<div class="section">
+<h2>Support</h2>
+<p>support@bayoufinds.com<br>
+https://bayoufinds.com\</p\>
+</div>
+
+<div class="footer">
+© BayouFinds.com - All rights reserved.
+</div>
+
+</body>
+</html>

@@ -1,0 +1,25 @@
+BAYOUFINDS OPS SUITE v1.0 — USER GUIDE
+=====================================
+
+START HERE
+----------
+1) Extract the ZIP.
+2) Double-click RUN_ME.cmd.
+3) Select [14] SOX Audit Runner.
+4) Review reports in the output folder.
+
+PURPOSE
+-------
+BayouFinds Ops Suite generates audit-ready evidence for IT operations, SOX support, access reviews, authentication activity, patch validation, monitoring coverage, and Dynamics GP inventory.
+
+OUTPUT
+------
+Reports are written to:
+.\output\
+
+SUPPORT
+-------
+support@bayoufinds.com
+https://bayoufinds.com
+
+© BayouFinds.com - All rights reserved.

@@ -1,0 +1,10 @@
+══════════════════════════════════════
+STARTUP PROGRAMS AUDIT
+══════════════════════════════════════
+
+PATH: HKLM:\Software\Microsoft\Windows\CurrentVersion\Run
+
+PATH: HKCU:\Software\Microsoft\Windows\CurrentVersion\Run
+
+© BayouFinds.com - All rights reserved.
+support@bayoufinds.com | https://bayoufinds.com

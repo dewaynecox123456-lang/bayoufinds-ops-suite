@@ -1,0 +1,90 @@
+!/usr/bin/env bash
+set -euo pipefail
+
+echo "[INFO] BayouFinds System Health Check Toolkit"
+echo "[INFO] Licensed Version"
+echo
+
+LICENSE_FILE="$HOME/.bayoufinds/license.key"
+
+if [ ! -f "$LICENSE_FILE" ]; then
+  echo "[ERROR] License key not found."
+  exit 1
+fi
+
+LICENSE_KEY=$(tr -d '\r\n' < "$LICENSE_FILE")
+
+VALID_KEYS=("BF-2026-001")
+
+VALID=false
+for key in "${VALID_KEYS[@]}"; do
+  if [[ "$LICENSE_KEY" == "$key" ]]; then
+    VALID=true
+  fi
+done
+
+if [ "$VALID" = false ]; then
+  echo "[ERROR] Invalid license key."
+  exit 1
+fi
+
+echo "[OK] License verified."
+echo "[INFO] Running system scan..."
+
+OUTPUT_DIR="${1:-./output}"
+mkdir -p "$OUTPUT_DIR"
+
+REPORT="$OUTPUT_DIR/linux_health_$(date +%Y%m%d_%H%M%S).txt"
+
+echo "🚨 SYSTEM HEALTH REPORT" > "$REPORT"
+echo "-----------------------" >> "$REPORT"
+echo "" >> "$REPORT"
+
+CRITICAL_COUNT=0
+WARN_COUNT=0
+
+# Disk usage check
+DISK_USAGE=$(df / | awk 'NR==2 {print $5}' | tr -d '%')
+
+if (( DISK_USAGE > 90 )); then
+  echo "CRITICAL:" >> "$REPORT"
+  echo "- Disk usage above 90% on / ($DISK_USAGE%)" >> "$REPORT"
+  ((CRITICAL_COUNT++))
+elif (( DISK_USAGE > 75 )); then
+  echo "WARN:" >> "$REPORT"
+  echo "- Disk usage above 75% on / ($DISK_USAGE%)" >> "$REPORT"
+  ((WARN_COUNT++))
+fi
+
+# Uptime
+UPTIME=$(uptime -p)
+echo "" >> "$REPORT"
+echo "INFO:" >> "$REPORT"
+echo "- Uptime: $UPTIME" >> "$REPORT"
+
+# Top issue
+echo "" >> "$REPORT"
+echo "TOP ISSUE:" >> "$REPORT"
+
+if (( CRITICAL_COUNT > 0 )); then
+  echo "Disk capacity is critically high" >> "$REPORT"
+elif (( WARN_COUNT > 0 )); then
+  echo "System nearing disk limits" >> "$REPORT"
+else
+  echo "No critical issues detected" >> "$REPORT"
+fi
+
+# Recommendation
+echo "" >> "$REPORT"
+echo "RECOMMENDATION:" >> "$REPORT"
+
+if (( DISK_USAGE > 90 )); then
+  echo "Clean logs or expand storage immediately" >> "$REPORT"
+elif (( DISK_USAGE > 75 )); then
+  echo "Monitor disk usage and plan cleanup" >> "$REPORT"
+else
+  echo "System operating normally" >> "$REPORT"
+fi
+
+echo "" >> "$REPORT"
+echo "Health check complete: $REPORT"

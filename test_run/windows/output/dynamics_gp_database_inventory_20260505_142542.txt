@@ -1,0 +1,47 @@
+══════════════════════════════════════
+══════════════════════════════════════
+
+Generated: 2026-05-05 14:25:42 -05:00
+Operator: \
+Computer: 
+Domain: 
+SQL Server: localhost
+Script Version: v1.0
+
+PURPOSE
+-------
+Inventory Microsoft Dynamics GP / Great Plains SQL databases for financial-system audit visibility.
+
+ERROR
+-----
+Unable to query SQL Server using Invoke-Sqlcmd.
+Reason: The term 'Invoke-Sqlcmd' is not recognized as a name of a cmdlet, function, script file, or executable program.
+Check the spelling of the name, or if a path was included, verify that the path is correct and try again.
+
+COMMON CAUSES
+-------------
+- SQL Server PowerShell module is not installed
+- Operator lacks SQL permissions
+- SQL Server name/instance is incorrect
+- Firewall or InfoSec policy blocks SQL access
+- Run from a server/admin workstation with SQL tools installed
+
+WHERE TO REVIEW (AUDITOR GUIDANCE)
+-----------------------------------
+- SQL Server Management Studio (SSMS)
+- SQL Server → Databases
+- DYNAMICS system database
+- Company databases linked to Dynamics GP
+- SQL Security → Logins
+- SQL Server Agent jobs for GP maintenance/backups
+- Backup jobs and recovery model
+- GP application security roles if available
+
+NOTE
+----
+This script inventories SQL databases and identifies likely GP-related databases by common naming patterns.
+Validate findings with the Dynamics GP administrator or DBA.
+
+──────────────────────────────────────
+© BayouFinds.com - All rights reserved.
+support@bayoufinds.com | https://bayoufinds.com

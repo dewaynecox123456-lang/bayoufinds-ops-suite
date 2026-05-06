@@ -1,0 +1,6 @@
+"GroupName","GroupSamAccountName","MemberName","MemberSamAccountName","MemberObjectClass","MemberDistinguishedName","MemberEnabled","Source"
+"Administrators","Administrators","Bob Ops","bops","user","CN=Bob Ops,OU=IT,DC=example,DC=local","True","MockMode"
+"Backup Operators","Backup Operators","SvcBackup","svc_backup","user","CN=SvcBackup,OU=Service Accounts,DC=example,DC=local","True","MockMode"
+"Domain Admins","Domain Admins","Alice Admin","aadmin","user","CN=Alice Admin,OU=Admins,DC=example,DC=local","True","MockMode"
+"Domain Admins","Domain Admins","IT Admin Team","IT_Admin_Team","group","CN=IT Admin Team,OU=Groups,DC=example,DC=local","","MockMode"
+"Schema Admins","Schema Admins","<NO MEMBERS>","","","","","MockMode"

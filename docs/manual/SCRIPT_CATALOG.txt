@@ -1,0 +1,27 @@
+Script Catalog
+==============
+
+AD_User_Audit_Report.ps1
+- Purpose: Full user inventory
+- Key Fields: LastLogonDate, Enabled, Department
+
+AD_Privileged_Group_Audit.ps1
+- Purpose: Identify privileged group membership
+- Includes: Nested groups
+
+Password_Policy_Audit.ps1
+- Purpose: Review domain and FGPP policies
+
+AD_Termination_Date_Audit.ps1
+- Purpose: Identify users by termination attribute
+- Includes: Ticket parsing (planned)
+
+AD_Inactive_Users_Report.ps1
+- Purpose: Identify inactive enabled accounts
+- Parameter: DaysInactive
+
+(Planned)
+Local_Admin_Audit_Report.ps1
+- Purpose: Identify local admin exposure
+- Includes: SID tracking + AD enrichment
+

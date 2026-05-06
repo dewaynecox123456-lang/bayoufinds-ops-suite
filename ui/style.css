@@ -1,0 +1,105 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0f172a;
+  color: #e5e7eb;
+}
+
+header {
+  background: #020617;
+  border-bottom: 1px solid #1e293b;
+  padding: 20px 28px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+h1 {
+  margin: 0;
+  color: #38bdf8;
+}
+
+header p {
+  margin: 6px 0 0;
+  color: #94a3b8;
+}
+
+.brand {
+  color: #94a3b8;
+  font-size: 13px;
+}
+
+main {
+  display: flex;
+  min-height: calc(100vh - 90px);
+}
+
+aside {
+  width: 260px;
+  background: #020617;
+  border-right: 1px solid #1e293b;
+  padding: 18px;
+}
+
+aside button {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 12px;
+  background: #111827;
+  color: #e5e7eb;
+  border: 1px solid #334155;
+  border-radius: 8px;
+  text-align: left;
+  cursor: pointer;
+}
+
+aside button:hover {
+  border-color: #38bdf8;
+}
+
+section {
+  flex: 1;
+  padding: 28px;
+}
+
+.card {
+  background: #020617;
+  border: 1px solid #1e293b;
+  border-radius: 12px;
+  padding: 22px;
+  max-width: 900px;
+}
+
+h2 {
+  color: #38bdf8;
+  margin-top: 0;
+}
+
+.command {
+  background: #111827;
+  border: 1px solid #334155;
+  border-radius: 8px;
+  padding: 14px;
+  margin: 14px 0;
+  font-family: Consolas, monospace;
+  color: #facc15;
+}
+
+.copy {
+  background: #0ea5e9;
+  border: none;
+  color: white;
+  padding: 10px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.note {
+  color: #fbbf24;
+}
+
+.footer {
+  margin-top: 28px;
+  color: #94a3b8;
+  font-size: 13px;
+}
