@@ -1,6 +1,6 @@
 # BayouFinds Ops Suite v1.0
 
-![BayouFinds Ops Suite](./screenshots/hero.png)
+![BayouFinds Ops Suite](./screenshots/audit.png)
 
 PowerShell-based Windows audit and SOX evidence toolkit built for Active Directory environments.
 
@@ -36,11 +36,13 @@ This toolkit consolidates recurring audit and reporting tasks into a structured 
 ## Screenshots
 
 ### Hero Image
-![Hero Image](./screenshots/hero.png)
+![Hero Image](./screenshots/audit.png)
 
 ### Audit Report Example
-![Audit Report](./screenshots/audit-report.png)
+![Audit Report](./screenshots/pasted image.png)
 
+### Audit Report Example
+![Audit Report](./screenshots/Sox_Audit_Index_20260505_142536.txt
 
 - AD User Audit Report
 - AD Role Audit Report
