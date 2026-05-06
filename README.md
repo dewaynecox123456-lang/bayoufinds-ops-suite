@@ -32,6 +32,18 @@ This toolkit consolidates recurring audit and reporting tasks into a structured 
 ---
 
 ## Current Modules
+---
+
+## Screenshots
+
+### Main Menu
+![Main Menu](./screenshots/menu.png)
+
+### Audit Report Example
+![Audit Report](./screenshots/audit-report.png)
+
+### CSV Export Example
+![CSV Export](./screenshots/csv-example.png)
 
 - AD User Audit Report
 - AD Role Audit Report
