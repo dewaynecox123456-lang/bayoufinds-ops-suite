@@ -1,0 +1,78 @@
+══════════════════════════════════════
+SOX AUDIT EVIDENCE PACK
+══════════════════════════════════════
+
+Generated: 2026-05-05 14:25:36 -05:00
+Operator: \
+Computer: 
+Domain: 
+Script Version: v1.0
+Output Folder: .\output\sox_20260505_142536
+
+Running: Windows_Health_Check.ps1
+[OK] Windows_Health_Check.ps1 completed
+
+Running: Patch_Dump.ps1
+[OK] Patch_Dump.ps1 completed
+
+Running: Mapped_Drives_Report.ps1
+[OK] Mapped_Drives_Report.ps1 completed
+
+Running: Password_Policy_Audit.ps1
+[OK] Password_Policy_Audit.ps1 completed
+
+Running: Inactive_Users_Audit.ps1
+[OK] Inactive_Users_Audit.ps1 completed
+
+Running: Local_Admin_Audit.ps1
+[OK] Local_Admin_Audit.ps1 completed
+
+Running: AD_Privileged_Group_Audit.ps1
+[OK] AD_Privileged_Group_Audit.ps1 completed
+
+Running: AD_Description_Keyword_Audit.ps1
+[OK] AD_Description_Keyword_Audit.ps1 completed
+
+Running: Failed_Login_Audit.ps1
+[OK] Failed_Login_Audit.ps1 completed
+
+Running: SolarWinds_Agent_Audit.ps1
+[OK] SolarWinds_Agent_Audit.ps1 completed
+
+Running: Dynamics_GP_Database_Inventory.ps1
+[OK] Dynamics_GP_Database_Inventory.ps1 completed
+
+Running: Admin_Share_Audit.ps1
+[OK] Admin_Share_Audit.ps1 completed
+
+Running: Time_Sync_Audit.ps1
+[OK] Time_Sync_Audit.ps1 completed
+
+Running: Local_User_Audit.ps1
+[OK] Local_User_Audit.ps1 completed
+
+Running: Startup_Programs_Audit.ps1
+[OK] Startup_Programs_Audit.ps1 completed
+
+Running: Scheduled_Tasks_Audit.ps1
+[OK] Scheduled_Tasks_Audit.ps1 completed
+
+Running: Service_Account_Audit.ps1
+[OK] Service_Account_Audit.ps1 completed
+
+Running: Password_Reset_Audit.ps1
+[OK] Password_Reset_Audit.ps1 completed
+
+Running: AD_Group_Change_Audit.ps1
+[OK] AD_Group_Change_Audit.ps1 completed
+
+Running: Logon_Success_Audit.ps1
+[OK] Logon_Success_Audit.ps1 completed
+
+NOTE:
+- Review each generated report before submitting as audit evidence.
+- Some AD reports require domain connectivity and appropriate permissions.
+
+──────────────────────────────────────
+© BayouFinds.com - All rights reserved.
+support@bayoufinds.com | https://bayoufinds.com
