@@ -39,7 +39,7 @@ This toolkit consolidates recurring audit and reporting tasks into a structured 
 ![Hero Image](./screenshots/Audit.png)
 
 ### Audit Report Example
-![Audit Report](./screenshots/pasted_image.png)
+![Audit Report](./screenshots/image.png)
 
 ### Audit Report Example
 ![Audit Report](./screenshots/Sox_Audit_Index_20260505_142536.txt
