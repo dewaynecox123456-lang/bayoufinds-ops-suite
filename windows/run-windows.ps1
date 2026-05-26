@@ -3,20 +3,25 @@ $ErrorActionPreference = "Stop"
 function Show-Banner {
     Write-Host ""
     Write-Host "====================================================="
-    Write-Host "        BayouFinds Ops Suite — Windows Launcher"
+    Write-Host "        BayouFinds Ops Suite - Windows Launcher"
     Write-Host "====================================================="
     Write-Host ""
 }
 
 function Ensure-License {
-    
-if ($env:USERPROFILE) {
-    $basePath = $env:USERPROFILE
-} else {
-    $basePath = $env:HOME
-}
+    if ($env:USERPROFILE) {
+        $basePath = $env:USERPROFILE
+    }
+    else {
+        $basePath = $env:HOME
+    }
 
-$licenseDir = Join-Path $basePath ".bayoufinds"
+    if (-not $basePath) {
+        Write-Host "[WARN] Unable to locate a user profile path for local configuration." -ForegroundColor Yellow
+        return
+    }
+
+    $licenseDir = Join-Path $basePath ".bayoufinds"
 
     $licensePath = Join-Path $licenseDir "license.key"
 
@@ -34,19 +39,19 @@ $licenseDir = Join-Path $basePath ".bayoufinds"
         Set-Content -Path $licensePath -Value $enteredKey
     }
 
-    Write-Host "[OK] License verified."
+    Write-Host "[OK] Local configuration found."
     Write-Host ""
 }
 
 function Run-Tool {
     param([string]$ScriptName)
 
-    $scriptPath = Join-Path $PSScriptRoot "scripts" $ScriptName
-if (!(Test-Path $scriptPath)) {
-    $scriptPath = Join-Path $PSScriptRoot $ScriptName
-}
+    $scriptPath = Join-Path (Join-Path $PSScriptRoot "scripts") $ScriptName
+    if (!(Test-Path -LiteralPath $scriptPath)) {
+        $scriptPath = Join-Path $PSScriptRoot $ScriptName
+    }
 
-    if (!(Test-Path $scriptPath)) {
+    if (!(Test-Path -LiteralPath $scriptPath)) {
         Write-Host "[ERROR] Script not found: $scriptPath" -ForegroundColor Red
         Read-Host "Press Enter"
         return
@@ -63,8 +68,10 @@ if (!(Test-Path $scriptPath)) {
         }
         else {
             Write-Host "[ERROR] No PowerShell runtime found." -ForegroundColor Red
+            Read-Host "Press Enter"
+            return
         }
-        if ($LASTEXITCODE -ne 0) {
+        if ($null -ne $LASTEXITCODE -and $LASTEXITCODE -ne 0) {
             Write-Host "[WARN] Script exited with code $LASTEXITCODE" -ForegroundColor Yellow
         }
     }
@@ -77,7 +84,14 @@ if (!(Test-Path $scriptPath)) {
 
 
 function Show-Help {
-    Start-Process "help\index.html"
+    $helpPath = Join-Path (Join-Path $PSScriptRoot "help") "index.html"
+    if (Test-Path -LiteralPath $helpPath) {
+        Start-Process $helpPath
+    }
+    else {
+        Write-Host "[WARN] Help file not found: $helpPath" -ForegroundColor Yellow
+        Read-Host "Press Enter"
+    }
 }
 
 function Show-About {
@@ -97,50 +111,55 @@ while ($true) {
     Clear-Host
     Show-Banner
 
-   Write-Host ""
-Write-Host "==================== SYSTEM ====================" -ForegroundColor Cyan
-Write-Host "[1]  Windows Health Check"
-Write-Host "[4]  Patch Dump"
-Write-Host "[5]  Mapped Drives Report"
+    Write-Host ""
+    Write-Host "==================== SYSTEM ====================" -ForegroundColor Cyan
+    Write-Host "[1]  Windows Health Check"
+    Write-Host "[4]  Patch Dump"
+    Write-Host "[5]  Mapped Drives Report"
+    Write-Host "[24] Time Sync Audit"
 
-Write-Host ""
-Write-Host "==================== IDENTITY ==================" -ForegroundColor Green
-Write-Host "[7]  AD User Audit Report"
-Write-Host "[8]  AD Role Audit Report"
-Write-Host "[9]  AD Privileged Group Audit"
-Write-Host "[12] Inactive Users Audit"
-Write-Host "[13] Local Admin Audit"
+    Write-Host ""
+    Write-Host "==================== IDENTITY ==================" -ForegroundColor Green
+    Write-Host "[2]  AD Access Snapshot Export"
+    Write-Host "[3]  AD Access Snapshot Restore"
+    Write-Host "[7]  AD User Audit Report"
+    Write-Host "[8]  AD Role Audit Report"
+    Write-Host "[9]  AD Privileged Group Audit"
+    Write-Host "[10] Password Policy Audit"
+    Write-Host "[11] AD Termination Date Audit"
+    Write-Host "[12] Inactive Users Audit"
+    Write-Host "[13] Local Admin Audit"
 
-Write-Host ""
-Write-Host "==================== AUTH ======================" -ForegroundColor Yellow
-Write-Host "[16] Failed Login / Brute Force Audit"
-Write-Host "[17] Logon Success Audit"
-Write-Host "[18] AD Group Change Audit"
-Write-Host "[19] Password Change / Reset Audit"
+    Write-Host ""
+    Write-Host "==================== AUTH ======================" -ForegroundColor Yellow
+    Write-Host "[6]  Password Reset Generator"
+    Write-Host "[16] Failed Login / Brute Force Audit"
+    Write-Host "[17] Logon Success Audit"
+    Write-Host "[18] AD Group Change Audit"
+    Write-Host "[19] Password Change / Reset Audit"
 
-Write-Host ""
-Write-Host "==================== OPERATIONS ================" -ForegroundColor Magenta
-Write-Host "[20] Service Account Audit"
-Write-Host "[21] Scheduled Tasks Audit"
-Write-Host "[22] Startup Programs Audit"
-Write-Host "[23] Local User Audit"
-Write-Host "[24] Time Sync Audit"
-Write-Host "[25] Admin Share Audit"
-Write-Host "[26] SolarWinds Agent Audit"
+    Write-Host ""
+    Write-Host "==================== OPERATIONS ================" -ForegroundColor Magenta
+    Write-Host "[20] Service Account Audit"
+    Write-Host "[21] Scheduled Tasks Audit"
+    Write-Host "[22] Startup Programs Audit"
+    Write-Host "[23] Local User Audit"
+    Write-Host "[25] Admin Share Audit"
+    Write-Host "[26] SolarWinds Agent Audit"
 
-Write-Host ""
-Write-Host "==================== AUDIT =====================" -ForegroundColor Red
-Write-Host "[14] SOX Audit Runner (Full Evidence Pack)"
-Write-Host "[15] AD Description Keyword Audit"
+    Write-Host ""
+    Write-Host "==================== AUDIT =====================" -ForegroundColor Red
+    Write-Host "[14] SOX Audit Runner (Full Evidence Pack)"
+    Write-Host "[15] AD Description Keyword Audit"
 
-Write-Host ""
-Write-Host "==================== DATA ======================" -ForegroundColor DarkCyan
-Write-Host "[27] Dynamics GP Database Inventory"
+    Write-Host ""
+    Write-Host "==================== DATA ======================" -ForegroundColor DarkCyan
+    Write-Host "[27] Dynamics GP Database Inventory"
 
-Write-Host ""
-Write-Host "[H] Help"
-Write-Host "[A] About / Support"
-Write-Host "[0] Exit"
+    Write-Host ""
+    Write-Host "[H] Help"
+    Write-Host "[A] About / Support"
+    Write-Host "[0] Exit"
     
     Write-Host ""
 
