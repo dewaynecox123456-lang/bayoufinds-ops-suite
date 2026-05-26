@@ -3,6 +3,7 @@ param(
 )
 
 $ErrorActionPreference = "Continue"
+. (Join-Path (Split-Path -Parent $PSScriptRoot) "lib\Common.ps1")
 
 $ScriptVersion = "v1.0"
 $Timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss zzz"
@@ -10,9 +11,8 @@ $RunStamp = Get-Date -Format "yyyyMMdd_HHmmss"
 $Operator = "$env:USERDOMAIN\$env:USERNAME"
 $Computer = $env:COMPUTERNAME
 $Domain = $env:USERDOMAIN
-$OutputDir = ".\output"
+$OutputDir = Initialize-BayouFindsOutputDirectory -ScriptRoot $PSScriptRoot
 
-New-Item -ItemType Directory -Force -Path $OutputDir | Out-Null
 $ReportFile = Join-Path $OutputDir "dynamics_gp_database_inventory_$RunStamp.txt"
 
 function Write-Line {
@@ -21,7 +21,7 @@ function Write-Line {
 }
 
 "══════════════════════════════════════" | Set-Content $ReportFile
-"DYNAMICS GP / GREAT PLAINS DATABASE INVENTORY"
+"DYNAMICS GP / GREAT PLAINS DATABASE INVENTORY" | Add-Content $ReportFile
 "══════════════════════════════════════" | Add-Content $ReportFile
 "" | Add-Content $ReportFile
 

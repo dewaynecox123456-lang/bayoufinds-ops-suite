@@ -3,14 +3,15 @@ param(
 )
 
 $ErrorActionPreference = "Continue"
+. (Join-Path (Split-Path -Parent $PSScriptRoot) "lib\Common.ps1")
+
 $ScriptVersion = "v1.0"
 $Timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss zzz"
 $RunStamp = Get-Date -Format "yyyyMMdd_HHmmss"
 $Operator = "$env:USERDOMAIN\$env:USERNAME"
 $Computer = $env:COMPUTERNAME
 $Domain = $env:USERDOMAIN
-$OutputDir = ".\output"
-New-Item -ItemType Directory -Force -Path $OutputDir | Out-Null
+$OutputDir = Initialize-BayouFindsOutputDirectory -ScriptRoot $PSScriptRoot
 $ReportFile = Join-Path $OutputDir "failed_login_audit_$RunStamp.txt"
 
 $StartTime = (Get-Date).AddHours(-$HoursBack)

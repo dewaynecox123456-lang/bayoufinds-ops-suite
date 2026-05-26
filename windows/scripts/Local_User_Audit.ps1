@@ -1,15 +1,36 @@
-$ErrorActionPreference="Continue"
-$RunStamp=Get-Date -Format "yyyyMMdd_HHmmss"
-$ReportFile=".\output\local_user_audit_$RunStamp.txt"
-New-Item -ItemType Directory -Force -Path ".\output" | Out-Null
-$users=Get-LocalUser
+$ErrorActionPreference = "Continue"
+. (Join-Path (Split-Path -Parent $PSScriptRoot) "lib\Common.ps1")
+
+$RunStamp = Get-Date -Format "yyyyMMdd_HHmmss"
+$OutputDir = Initialize-BayouFindsOutputDirectory -ScriptRoot $PSScriptRoot
+$ReportFile = Join-Path $OutputDir "local_user_audit_$RunStamp.txt"
+$users = @()
+$collectionError = $null
+
+if (Test-BayouFindsCommand -Name "Get-LocalUser" -FriendlyName "local user inventory") {
+    try {
+        $users = @(Get-LocalUser -ErrorAction Stop)
+    }
+    catch {
+        $collectionError = $_.Exception.Message
+    }
+}
+else {
+    $collectionError = "Get-LocalUser is unavailable on this host."
+}
 
 "══════════════════════════════════════" | Set-Content $ReportFile
 "LOCAL USER AUDIT" | Add-Content $ReportFile
 "══════════════════════════════════════" | Add-Content $ReportFile
 "Local Users Found: $($users.Count)" | Add-Content $ReportFile
 "" | Add-Content $ReportFile
-foreach($u in $users){
+if ($collectionError) {
+  "[WARN] $collectionError" | Add-Content $ReportFile
+}
+elseif ($users.Count -eq 0) {
+  "- No local users returned." | Add-Content $ReportFile
+}
+foreach ($u in $users) {
   "- $($u.Name) | Enabled: $($u.Enabled) | LastLogon: $($u.LastLogon) | PasswordRequired: $($u.PasswordRequired)" | Add-Content $ReportFile
 }
 "" | Add-Content $ReportFile

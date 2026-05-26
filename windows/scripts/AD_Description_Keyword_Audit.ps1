@@ -1,16 +1,22 @@
 $ErrorActionPreference = "Stop"
+. (Join-Path (Split-Path -Parent $PSScriptRoot) "lib\Common.ps1")
 
 $ScriptVersion = "v1.0"
 $Timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss zzz"
 $Operator = "$env:USERDOMAIN\$env:USERNAME"
 $Computer = $env:COMPUTERNAME
 $Domain = $env:USERDOMAIN
-$OutputDir = ".\output"
-New-Item -ItemType Directory -Force -Path $OutputDir | Out-Null
+$OutputDir = Initialize-BayouFindsOutputDirectory -ScriptRoot $PSScriptRoot
 
 $ReportFile = Join-Path $OutputDir ("ad_description_keyword_audit_{0}.txt" -f (Get-Date -Format "yyyyMMdd_HHmmss"))
 
-Import-Module ActiveDirectory -ErrorAction Stop
+if (-not (Import-BayouFindsActiveDirectoryModule)) {
+    "AD DESCRIPTION KEYWORD AUDIT" | Set-Content $ReportFile
+    "" | Add-Content $ReportFile
+    "[ERROR] ActiveDirectory module is unavailable. Run this on a domain-joined system with RSAT/AD tools installed." | Add-Content $ReportFile
+    Write-Host "Report complete with errors: $ReportFile" -ForegroundColor Yellow
+    exit 1
+}
 
 $keywords = @(
     "hacked",

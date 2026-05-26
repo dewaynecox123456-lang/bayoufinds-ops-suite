@@ -5,13 +5,7 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
-
-function Ensure-Directory {
-    param([string]$Path)
-    if (-not (Test-Path -LiteralPath $Path)) {
-        New-Item -ItemType Directory -Path $Path -Force | Out-Null
-    }
-}
+. (Join-Path (Split-Path -Parent $PSScriptRoot) "lib\Common.ps1")
 
 try {
     Import-Module ActiveDirectory -ErrorAction Stop
@@ -21,7 +15,7 @@ try {
 }
 
 $timestamp = Get-Date -Format "yyyyMMdd_HHmmss"
-Ensure-Directory -Path $OutDir
+$OutDir = Initialize-BayouFindsOutputDirectory -ScriptRoot $PSScriptRoot -OutDir $OutDir
 
 $groupCsv = Join-Path $OutDir "AD_Role_Audit_Groups_$timestamp.csv"
 $memberCsv = Join-Path $OutDir "AD_Role_Audit_GroupMembers_$timestamp.csv"

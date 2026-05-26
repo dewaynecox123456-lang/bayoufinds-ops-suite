@@ -1,12 +1,29 @@
 param([string]$OU = "")
-$ErrorActionPreference="Continue"
-Import-Module ActiveDirectory -ErrorAction Stop
-$RunStamp=Get-Date -Format "yyyyMMdd_HHmmss"
-$ReportFile=".\output\solarwinds_agent_audit_$RunStamp.txt"
-New-Item -ItemType Directory -Force -Path ".\output" | Out-Null
+$ErrorActionPreference = "Continue"
+. (Join-Path (Split-Path -Parent $PSScriptRoot) "lib\Common.ps1")
 
-if($OU){$servers=Get-ADComputer -SearchBase $OU -Filter * -Properties OperatingSystem}
-else{$servers=Get-ADComputer -Filter {OperatingSystem -like "*Server*"} -Properties OperatingSystem}
+$RunStamp = Get-Date -Format "yyyyMMdd_HHmmss"
+$OutputDir = Initialize-BayouFindsOutputDirectory -ScriptRoot $PSScriptRoot
+$ReportFile = Join-Path $OutputDir "solarwinds_agent_audit_$RunStamp.txt"
+$servers = @()
+$collectionError = $null
+
+if (Import-BayouFindsActiveDirectoryModule) {
+  try {
+    if ($OU) {
+      $servers = @(Get-ADComputer -SearchBase $OU -Filter * -Properties OperatingSystem -ErrorAction Stop)
+    }
+    else {
+      $servers = @(Get-ADComputer -Filter { OperatingSystem -like "*Server*" } -Properties OperatingSystem -ErrorAction Stop)
+    }
+  }
+  catch {
+    $collectionError = $_.Exception.Message
+  }
+}
+else {
+  $collectionError = "ActiveDirectory module is unavailable."
+}
 
 $installed=@(); $missing=@()
 foreach($s in $servers){
@@ -23,9 +40,18 @@ foreach($s in $servers){
 "With SolarWinds: $($installed.Count)" | Add-Content $ReportFile
 "Missing SolarWinds: $($missing.Count)" | Add-Content $ReportFile
 "" | Add-Content $ReportFile
+if ($collectionError) {
+  "[WARN] $collectionError" | Add-Content $ReportFile
+  "" | Add-Content $ReportFile
+}
 "MISSING SOLARWINDS AGENT" | Add-Content $ReportFile
 "------------------------" | Add-Content $ReportFile
-$missing | ForEach-Object { "- $_" | Add-Content $ReportFile }
+if ($missing.Count -eq 0 -and -not $collectionError) {
+  "- No missing agents detected." | Add-Content $ReportFile
+}
+else {
+  $missing | ForEach-Object { "- $_" | Add-Content $ReportFile }
+}
 "" | Add-Content $ReportFile
 "© BayouFinds.com - All rights reserved." | Add-Content $ReportFile
 "support@bayoufinds.com | https://bayoufinds.com" | Add-Content $ReportFile

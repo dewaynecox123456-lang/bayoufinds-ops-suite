@@ -16,13 +16,7 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
-
-function Ensure-Directory {
-    param([string]$Path)
-    if (-not (Test-Path -LiteralPath $Path)) {
-        New-Item -ItemType Directory -Path $Path -Force | Out-Null
-    }
-}
+. (Join-Path (Split-Path -Parent $PSScriptRoot) "lib\Common.ps1")
 
 function New-Row {
     param(
@@ -49,7 +43,7 @@ function New-Row {
 }
 
 $timestamp = Get-Date -Format "yyyyMMdd_HHmmss"
-Ensure-Directory -Path $OutDir
+$OutDir = Initialize-BayouFindsOutputDirectory -ScriptRoot $PSScriptRoot -OutDir $OutDir
 
 $csvPath = Join-Path $OutDir "AD_Privileged_Group_Audit_$timestamp.csv"
 

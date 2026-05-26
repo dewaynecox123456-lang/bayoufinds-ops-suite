@@ -13,6 +13,8 @@ if (-not $UserName) {
 }
 
 $ErrorActionPreference = "Stop"
+. (Join-Path (Split-Path -Parent $PSScriptRoot) "lib\Common.ps1")
+
 $ScriptVersion = "v1.1"
 $Timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss zzz"
 $Operator = "$env:USERDOMAIN\$env:USERNAME"
@@ -21,13 +23,15 @@ $Domain = $env:USERDOMAIN
 
 $SnapshotId = "snapshot_{0}_{1}" -f $UserName, (Get-Date -Format "yyyyMMdd_HHmmss")
 
-$OutputDir = ".\output"
-New-Item -ItemType Directory -Force -Path $OutputDir | Out-Null
+$OutputDir = Initialize-BayouFindsOutputDirectory -ScriptRoot $PSScriptRoot
 
 $ReportFile = Join-Path $OutputDir ("{0}.txt" -f $SnapshotId)
 $CsvFile = Join-Path $OutputDir ("{0}.csv" -f $SnapshotId)
 
-Import-Module ActiveDirectory -ErrorAction Stop
+if (-not (Import-BayouFindsActiveDirectoryModule)) {
+    Write-Host "[ERROR] ActiveDirectory module is unavailable. Run this on a domain-joined system with RSAT/AD tools installed." -ForegroundColor Red
+    exit 1
+}
 
 $user = Get-ADUser -Identity $UserName -Properties DisplayName, DistinguishedName, SamAccountName
 $groups = Get-ADPrincipalGroupMembership -Identity $user | Sort-Object Name

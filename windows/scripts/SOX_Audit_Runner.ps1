@@ -1,4 +1,5 @@
 $ErrorActionPreference = "Continue"
+. (Join-Path (Split-Path -Parent $PSScriptRoot) "lib\Common.ps1")
 
 $ScriptVersion = "v1.0"
 $Timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss zzz"
@@ -6,9 +7,8 @@ $RunStamp = Get-Date -Format "yyyyMMdd_HHmmss"
 $Operator = "$env:USERDOMAIN\$env:USERNAME"
 $Computer = $env:COMPUTERNAME
 $Domain = $env:USERDOMAIN
-$OutputDir = ".\output\sox_$RunStamp"
+$OutputDir = Initialize-BayouFindsOutputDirectory -ScriptRoot $PSScriptRoot -OutDir ".\output\sox_$RunStamp"
 
-New-Item -ItemType Directory -Force -Path $OutputDir | Out-Null
 $IndexFile = Join-Path $OutputDir "SOX_Audit_Index_$RunStamp.txt"
 
 $Tools = @(
@@ -57,17 +57,23 @@ foreach ($tool in $Tools) {
     }
 
     try {
+        $LASTEXITCODE = 0
         if (Get-Command pwsh -ErrorAction SilentlyContinue) {
-            & pwsh -ExecutionPolicy Bypass -File $toolPath
+            & pwsh -NoProfile -ExecutionPolicy Bypass -File $toolPath
         }
         elseif (Get-Command powershell.exe -ErrorAction SilentlyContinue) {
-            & powershell.exe -ExecutionPolicy Bypass -File $toolPath
+            & powershell.exe -NoProfile -ExecutionPolicy Bypass -File $toolPath
         }
         else {
             throw "No PowerShell runtime found."
         }
 
-        "[OK] $tool completed" | Add-Content $IndexFile
+        if ($null -ne $LASTEXITCODE -and $LASTEXITCODE -ne 0) {
+            "[WARN] $tool exited with code $LASTEXITCODE" | Add-Content $IndexFile
+        }
+        else {
+            "[OK] $tool completed" | Add-Content $IndexFile
+        }
     }
     catch {
         "[ERROR] $tool failed: $($_.Exception.Message)" | Add-Content $IndexFile

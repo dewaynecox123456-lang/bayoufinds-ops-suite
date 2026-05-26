@@ -1,7 +1,9 @@
-$ErrorActionPreference="Continue"
-$RunStamp=Get-Date -Format "yyyyMMdd_HHmmss"
-$ReportFile=".\output\startup_programs_audit_$RunStamp.txt"
-New-Item -ItemType Directory -Force -Path ".\output" | Out-Null
+$ErrorActionPreference = "Continue"
+. (Join-Path (Split-Path -Parent $PSScriptRoot) "lib\Common.ps1")
+
+$RunStamp = Get-Date -Format "yyyyMMdd_HHmmss"
+$OutputDir = Initialize-BayouFindsOutputDirectory -ScriptRoot $PSScriptRoot
+$ReportFile = Join-Path $OutputDir "startup_programs_audit_$RunStamp.txt"
 
 $paths=@(
 "HKLM:\Software\Microsoft\Windows\CurrentVersion\Run",

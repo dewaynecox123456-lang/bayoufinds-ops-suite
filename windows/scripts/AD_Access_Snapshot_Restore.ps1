@@ -20,16 +20,20 @@ if (!(Test-Path $CsvFile)) {
 }
 
 $ErrorActionPreference = "Stop"
+. (Join-Path (Split-Path -Parent $PSScriptRoot) "lib\Common.ps1")
+
 $ScriptVersion = "v1.0"
 $Timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss zzz"
 $Operator = "$env:USERDOMAIN\$env:USERNAME"
 $Computer = $env:COMPUTERNAME
 $Domain = $env:USERDOMAIN
-$OutputDir = ".\output"
-New-Item -ItemType Directory -Force -Path $OutputDir | Out-Null
+$OutputDir = Initialize-BayouFindsOutputDirectory -ScriptRoot $PSScriptRoot
 $LogFile = Join-Path $OutputDir ("access_restore_{0}.txt" -f (Get-Date -Format "yyyyMMdd_HHmmss"))
 
-Import-Module ActiveDirectory -ErrorAction Stop
+if (-not (Import-BayouFindsActiveDirectoryModule)) {
+    Write-Host "[ERROR] ActiveDirectory module is unavailable. Run this on a domain-joined system with RSAT/AD tools installed." -ForegroundColor Red
+    exit 1
+}
 
 $data = Import-Csv -Path $CsvFile
 

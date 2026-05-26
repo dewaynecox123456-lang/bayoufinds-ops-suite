@@ -1,12 +1,13 @@
 $ErrorActionPreference = "Stop"
+. (Join-Path (Split-Path -Parent $PSScriptRoot) "lib\Common.ps1")
+
 $ScriptVersion = "v1.0"
 $Timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss zzz"
 $Operator = "$env:USERDOMAIN\$env:USERNAME"
 $Computer = $env:COMPUTERNAME
 $Domain = $env:USERDOMAIN
 $UserContext = "$env:USERDOMAIN\$env:USERNAME"
-$OutputDir = ".\output"
-New-Item -ItemType Directory -Force -Path $OutputDir | Out-Null
+$OutputDir = Initialize-BayouFindsOutputDirectory -ScriptRoot $PSScriptRoot
 $ReportFile = Join-Path $OutputDir ("mapped_drives_{0}.txt" -f (Get-Date -Format "yyyyMMdd_HHmmss"))
 
 $mappedDrives = Get-PSDrive -PSProvider FileSystem | Where-Object {

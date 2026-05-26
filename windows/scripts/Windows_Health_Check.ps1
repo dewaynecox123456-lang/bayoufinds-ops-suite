@@ -1,4 +1,5 @@
 $ErrorActionPreference = "Stop"
+. (Join-Path (Split-Path -Parent $PSScriptRoot) "lib\Common.ps1")
 
 Write-Host "[INFO] BayouFinds System Health Check Toolkit"
 Write-Host "[INFO] Licensed Version"
@@ -23,8 +24,7 @@ if ($validKeys -notcontains $key) {
 Write-Host "[OK] License verified."
 Write-Host "[INFO] Running system scan..."
 
-$outputDir = ".\output"
-New-Item -ItemType Directory -Force -Path $outputDir | Out-Null
+$outputDir = Initialize-BayouFindsOutputDirectory -ScriptRoot $PSScriptRoot
 
 $timestamp = Get-Date -Format "yyyyMMdd_HHmmss"
 $ReportFile = Join-Path $outputDir "windows_health_$timestamp.txt"
